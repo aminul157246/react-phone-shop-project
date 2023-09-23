@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
+import Rating from 'react-rating';
 import { Link } from 'react-router-dom';
+// import state from 'sweetalert/typings/modules/state';
 const Phone = ({phone}) => {
     const {id,image,phone_name,brand_name,price,rating} = phone
     // console.log(id,phone)
@@ -11,9 +13,15 @@ const Phone = ({phone}) => {
     <h2 className="card-title">phone_name : {phone_name}</h2>
     <p>brand_name : {brand_name}</p>
     <p>price : {price}$</p>
-    <p>rating : {rating}</p>
+    
+    <p> <Rating
+        initialRating={rating}
+        readonly
+    />
+    </p>
+
     <div className="card-actions justify-end">
-    <Link to={`/phones/${id}`}><button className="btn btn-primary">Details</button></Link>  
+    <Link to={`/phones/${id}` }state = {phone_name}><button className="btn btn-primary">Details</button></Link>  
     </div>  
   </div>
 </div>

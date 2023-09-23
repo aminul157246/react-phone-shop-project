@@ -1,5 +1,17 @@
+import { useContext } from "react";
+import { GlobalContext } from "../../../main";
 
 const Login = () => {
+
+
+  
+// context api part 
+const contextApiValue = useContext(GlobalContext)
+console.log('The Global Value : ', contextApiValue);
+
+
+
+
     return (
         <div className="flex justify-center items-center my-12">
             <div className="relative p-12 flex w-96 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
