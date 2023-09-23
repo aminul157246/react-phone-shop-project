@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 const Phone = ({phone}) => {
     const {id,image,phone_name,brand_name,price,rating} = phone
-    console.log(id,phone)
+    // console.log(id,phone)
     return (
         <div>
             <div className="card w-96 bg-base-100 shadow-xl">

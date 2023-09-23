@@ -1,21 +1,63 @@
 import { useEffect, useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
+import swal from "sweetalert";
 
 const PhoneDetails = () => {
     const [phone, setPhone] = useState([])
     const {id} = useParams()
-    console.log(id);
+    // console.log(id);
 
     const phones = useLoaderData()
-    console.log(phones);
+    // console.log(phones);
 
     useEffect(()=>{
         const findPhone = phones.find(phone => phone.id === id)
         setPhone(findPhone);
     },[id, phones])
-    console.log(phone);
+    // console.log(phone);
 
-    
+    // localStorage part 
+    const handleFavorite = () => {
+        
+        const addedFavorite = [];
+
+        const favoriteItem = JSON.parse(localStorage.getItem('favorite'))
+
+        if(!favoriteItem){
+            addedFavorite.push(phone);
+            localStorage.setItem('favorite', JSON.stringify(addedFavorite))
+            swal({
+                    title: "Good job!",
+                    text: "Product added ",
+                    icon: "success",
+                    button: "close",
+                  });
+        }
+        else {
+
+            const isExist = favoriteItem.find(item => item.id === id)
+            if(!isExist){
+
+                addedFavorite.push(...favoriteItem, phone);
+                localStorage.setItem('favorite', JSON.stringify(addedFavorite))
+                swal({
+                    title: "Good job!",
+                    text: "Product added ",
+                    icon: "success",
+                    button: "close",
+                  });
+            }
+            else{
+                swal({
+                    title: "Why ...!",
+                    text: "Duplicate not allowed",
+                    icon: "error",
+                    button: "close",
+                  });
+            }
+        }
+        // console.log(favoriteItem);
+    }
 
     
     return (
@@ -37,7 +79,7 @@ const PhoneDetails = () => {
     </h4>
 
     <a className="inline-block" href="#">
-      <button
+      <button onClick={handleFavorite}
         className="flex select-none mt-36 items-center gap-2 rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         type="button"
       >
@@ -46,14 +88,11 @@ const PhoneDetails = () => {
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          stroke-width="2"
           stroke="currentColor"
           aria-hidden="true"
           className="h-4 w-4"
         >
           <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
             d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
           ></path>
         </svg>
